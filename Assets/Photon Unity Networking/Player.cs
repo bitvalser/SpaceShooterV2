@@ -13,15 +13,17 @@ public class Player : Photon.MonoBehaviour {
     public float fireRate;
     //public GameObject TouchPad;
     private float nextFire;
+    private Vector3 pos;
+    private Quaternion rot;
 	//CharacterController controller;
     private void Start()
     {
 		//controller = GetComponent<CharacterController> ();
         rb = GetComponent<Rigidbody>();
     }
-	void OnPhotonSerializeView(PhotonStream stream,PhotonMessageInfo info){
-		Vector3 pos=transform.position;
-		Quaternion rot= transform.rotation;
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+		pos=transform.position;
+		rot= transform.rotation;
 		stream.Serialize(ref pos);
 		stream.Serialize(ref rot);
 		if(stream.isReading){

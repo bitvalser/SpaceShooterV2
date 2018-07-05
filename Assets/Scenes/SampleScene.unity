@@ -273,6 +273,7 @@ MonoBehaviour:
   startWait: 5
   countAst: 10
   spawnWait: 0.5
+  Background: {fileID: 0}
 --- !u!4 &172866723
 Transform:
   m_ObjectHideFlags: 0
@@ -747,7 +748,7 @@ GameObject:
   - component: {fileID: 754968896}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -10,6 +10,7 @@ TagManager:
   - CanDestroy
   - Control
   - FireEnemy
+  - Background
   layers:
   - Default
   - TransparentFX

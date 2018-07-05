@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 100, 40), "Wave " + Waves.ToString() +"\nНеработает " + score.ToString());
+        GUI.Box(new Rect(10, 10, 100, 40), "Wave " + Waves.ToString() +"\nScore " + score.ToString());
     }
 
     IEnumerator SpawnWaves()
