@@ -26,13 +26,7 @@ public class GameController : MonoBehaviour
         Waves = 0;
         score = 0;
         curBoss = null;
-        players = 1;
         StartCoroutine (SpawnWaves());
-    }
-
-    public void addPlayer()
-    {
-        players++;
     }
 
     public void addScore(int s)
@@ -42,7 +36,7 @@ public class GameController : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 100, 50), "Wave " + Waves.ToString() +"\nScore " + score.ToString() + "\nPlayers " + players.ToString());
+        GUI.Box(new Rect(10, 10, 100, 50), "Wave " + Waves.ToString() +"\nScore " + score.ToString());
     }
 
     IEnumerator SpawnWaves()
