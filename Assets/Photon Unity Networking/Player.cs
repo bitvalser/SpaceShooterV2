@@ -11,6 +11,10 @@ public class Player : Photon.MonoBehaviour {
     public GameObject shotSpawn;
     public GameObject ammo;
     public float fireRate;
+	Vector3 oldPos=Vector3.zero;
+	Vector3 newPos=Vector3.zero;
+	float offsetTime=0;
+	bool isSinch=false;
     //public GameObject TouchPad;
     private float nextFire;
 	//CharacterController controller;
@@ -25,34 +29,44 @@ public class Player : Photon.MonoBehaviour {
 		stream.Serialize(ref pos);
 		stream.Serialize(ref rot);
 		if(stream.isReading){
-			transform.position=pos;
-			transform.rotation=rot;
+			oldPos = transform.position;
+			newPos = pos;
+			offsetTime = 0;
+			isSinch = true;
+			//transform.position=pos;
+			//transform.rotation=rot;
 		}
 	}
     private void Update()
     {
 		Vector3 move = Vector3.zero;
-		if(photonView.isMine){
-			move = new Vector3(Input.GetAxis("Horizontal") * speed * 1000 * Time.deltaTime, 0, Input.GetAxis("Vertical") * speed * 1000 * Time.deltaTime);
-			rb.rotation = Quaternion.Euler(rb.velocity.z * -tilty, 180, rb.velocity.x * tiltx);
-			if ((transform.position.x < -200))
-			{
-				transform.position = new Vector3(-200, transform.position.y, transform.position.z);
+		if (photonView.isMine) {
+			move = new Vector3 (Input.GetAxis ("Horizontal") * speed * 1000 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * speed * 1000 * Time.deltaTime);
+			rb.rotation = Quaternion.Euler (rb.velocity.z * -tilty, 180, rb.velocity.x * tiltx);
+			if ((transform.position.x < -200)) {
+				transform.position = new Vector3 (-200, transform.position.y, transform.position.z);
 			}
-			if ((transform.position.x > 200))
-			{
-				transform.position = new Vector3(200, transform.position.y, transform.position.z);
+			if ((transform.position.x > 200)) {
+				transform.position = new Vector3 (200, transform.position.y, transform.position.z);
 			}
-			if ((transform.position.z < -781))
-			{
-				transform.position = new Vector3(transform.position.x, transform.position.y, -781);
+			if ((transform.position.z < -781)) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y, -781);
 			}
 			rb.velocity = move;
-			if(Time.time > nextFire && Input.GetKeyDown(KeyCode.Space))
-			{
+			if (Time.time > nextFire && Input.GetKeyDown (KeyCode.Space)) {
 				nextFire = Time.time + fireRate;
-				Instantiate(ammo, new Vector3(shotSpawn.transform.position.x, 36, shotSpawn.transform.position.z) , Quaternion.Euler(0, 0, 0));
+				Instantiate (ammo, new Vector3 (shotSpawn.transform.position.x, 36, shotSpawn.transform.position.z), Quaternion.Euler (0, 0, 0));
 			}
+		} else {
+			if (isSinch) {
+				if (Vector3.Distance (oldPos, newPos) > 3f)
+					transform.position = oldPos = newPos;
+				else {
+					offsetTime += Time.deltaTime * 9f;
+					transform.position = Vector3.Lerp (oldPos, newPos, offsetTime);
+				}
+			}
+
 		}
 
     }
