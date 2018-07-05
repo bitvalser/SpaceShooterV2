@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : Photon.MonoBehaviour
 {
 
     public Vector3 spawnPos;
@@ -19,18 +19,12 @@ public class GameController : MonoBehaviour
     private int Waves;
     private int score;
     private GameObject curBoss;
-    private int players;
 
     void Start()
     {
         Waves = 0;
         score = 0;
         curBoss = null;
-    }
-
-    public void StartGame()
-    {
-        Debug.Log("Game start");
         StartCoroutine (SpawnWaves());
     }
 
@@ -41,7 +35,7 @@ public class GameController : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 100, 50), "Wave " + Waves.ToString() +"\nScore " + score.ToString());
+        GUI.Box(new Rect(10, 10, 100, 40), "Wave " + Waves.ToString() +"\nScore " + score.ToString());
     }
 
     IEnumerator SpawnWaves()
@@ -60,28 +54,28 @@ public class GameController : MonoBehaviour
                     switch (Mathf.CeilToInt(Random.Range(0, 3)))
                     {
                         case 1:
-                            ast = ast1;
+                            if (photonView.isMine) PhotonNetwork.Instantiate("Asteroid1", spawnPosition, spawnRotation, 0);
                             break;
                         case 2:
-                            ast = ast2;
+                            if (photonView.isMine) PhotonNetwork.Instantiate("Asteroid2", spawnPosition, spawnRotation, 0);
                             break;
                         case 3:
-                            ast = ast3;
+                            if (photonView.isMine) PhotonNetwork.Instantiate("Asteroid3", spawnPosition, spawnRotation, 0);
                             break;
                     }
                     if (i == 1 || i == 10)
                     {
-                        var space = Instantiate(Enemy, new Vector3(spawnPosition.x, spawnPosition.y - 5, spawnPosition.z), spawnRotation);
+                        if(photonView.isMine) PhotonNetwork.Instantiate("fighter04", new Vector3(spawnPosition.x, spawnPosition.y - 5, spawnPosition.z), spawnRotation, 0);
                     }
-                    Instantiate(ast, spawnPosition, spawnRotation);
                     yield return new WaitForSeconds(spawnWait);
                 }
             }
-            if(Waves == 10)
+            if(Waves == 2)
             {
                 Waves++;
-                yield return new WaitForSeconds(waveWait);                
-                curBoss = Instantiate(Boss, spawnPositionBoss.transform.position, Quaternion.identity);               
+                yield return new WaitForSeconds(waveWait);
+                if(photonView.isMine)
+                    curBoss = PhotonNetwork.Instantiate("fighter03", spawnPositionBoss.transform.position, Quaternion.Euler(Vector3.zero), 0);
             }
             yield return new WaitForSeconds(waveWait);
         }

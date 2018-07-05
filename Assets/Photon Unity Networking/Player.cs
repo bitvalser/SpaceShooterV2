@@ -10,6 +10,7 @@ public class Player : Photon.MonoBehaviour {
     public float tilty;
     public GameObject shotSpawn;
     public GameObject ammo;
+    public GameObject Ast;
     public float fireRate;
 	float offsetTime=0;
 	bool isSinch=false;
@@ -54,10 +55,6 @@ public class Player : Photon.MonoBehaviour {
     private void Update()
     {
 		Vector3 move = Vector3.zero;
-        if(PhotonNetwork.isMasterClient && Input.GetKeyDown(KeyCode.R))
-        {
-            photonView.RPC("StartGame", PhotonTargets.All);
-        }
 		if (photonView.isMine) {
 			move = new Vector3 (Input.GetAxis ("Horizontal") * speed * 1000 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * speed * 1000 * Time.deltaTime);
 			rb.rotation = Quaternion.Euler (rb.velocity.z * -tilty, 180, rb.velocity.x * tiltx);
@@ -71,7 +68,7 @@ public class Player : Photon.MonoBehaviour {
 				transform.position = new Vector3 (transform.position.x, transform.position.y, -781);
 			}
 			rb.velocity = move;
-			if (Time.time > nextFire && Input.GetKeyDown (KeyCode.Space)) {
+			if (Time.time > nextFire && Input.GetKey(KeyCode.Space)) {
 				nextFire = Time.time + fireRate;
 				Instantiate (ammo, new Vector3 (shotSpawn.transform.position.x, 36, shotSpawn.transform.position.z), Quaternion.Euler (0, 0, 0));
 			}
@@ -95,11 +92,6 @@ public class Player : Photon.MonoBehaviour {
 
     }
 
-    [PunRPC]
-    void StartGame()
-    {
-        GameObject.FindWithTag("GameController").GetComponent<GameController>().StartGame();
-    }
 
 //    private void FixedUpdate()
 //    {

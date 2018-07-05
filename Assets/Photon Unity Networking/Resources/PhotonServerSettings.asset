@@ -36,4 +36,7 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
+  - StartGame
+  - SpawnEnemy
+  - SpawnEnemyShip
   DisableAutoOpenWizard: 1

@@ -30,19 +30,6 @@ public class Enemy : MonoBehaviour {
             nextFire = Time.time + fireRate;
             Instantiate(ammo, new Vector3(shotSpawn.transform.position.x, shotSpawn.transform.position.y, shotSpawn.transform.position.z), Quaternion.Euler(0, 0, 0));
         }
-    }
-
-    IEnumerator RandomManevr()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(manevrWait);
-            dir = Mathf.CeilToInt(Random.Range(-1, 2));
-        }
-    }
-
-    private void FixedUpdate()
-    {
         if ((transform.position.x < -200))
         {
             dir = -1;
@@ -53,6 +40,15 @@ public class Enemy : MonoBehaviour {
         }
         rb.velocity = new Vector3(dir * 2 * speed * 1000 * Time.deltaTime, 0, speed * 1000 * Time.deltaTime);
         rb.rotation = Quaternion.Euler(0.0f, 180, rb.velocity.x * -tilt);
+    }
+
+    IEnumerator RandomManevr()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(manevrWait);
+            dir = Mathf.CeilToInt(Random.Range(-1, 2));
+        }
     }
 
     private void OnTriggerEnter(Collider other)
