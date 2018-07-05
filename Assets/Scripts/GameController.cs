@@ -49,7 +49,7 @@ public class GameController : Photon.MonoBehaviour
                 for (int i = 0; i < countAst; i++)
                 {
                     Vector3 spawnPosition = new Vector3(Random.Range(-spawnPos.x, spawnPos.x), spawnPos.y, spawnPos.z);
-                    Quaternion spawnRotation = Quaternion.identity;
+                    Quaternion spawnRotation = Quaternion.Euler(Vector3.zero);
                     GameObject ast = ast1;
                     switch (Mathf.CeilToInt(Random.Range(0, 3)))
                     {
@@ -57,15 +57,15 @@ public class GameController : Photon.MonoBehaviour
                             if (photonView.isMine) PhotonNetwork.Instantiate("Asteroid1", spawnPosition, spawnRotation, 0);
                             break;
                         case 2:
-                            if (photonView.isMine) PhotonNetwork.Instantiate("Asteroid2", spawnPosition, spawnRotation, 0);
+                            if (photonView.isMine)  PhotonNetwork.Instantiate("Asteroid2", spawnPosition, spawnRotation, 0);
                             break;
                         case 3:
-                            if (photonView.isMine) PhotonNetwork.Instantiate("Asteroid3", spawnPosition, spawnRotation, 0);
+                            if (photonView.isMine)  PhotonNetwork.Instantiate("Asteroid3", spawnPosition, spawnRotation, 0);
                             break;
                     }
                     if (i == 1 || i == 10)
                     {
-                        if(photonView.isMine) PhotonNetwork.Instantiate("fighter04", new Vector3(spawnPosition.x, spawnPosition.y - 5, spawnPosition.z), spawnRotation, 0);
+                        if (photonView.isMine)  PhotonNetwork.Instantiate("fighter04", new Vector3(spawnPosition.x, spawnPosition.y - 5, spawnPosition.z), spawnRotation, 0);
                     }
                     yield return new WaitForSeconds(spawnWait);
                 }
@@ -74,7 +74,7 @@ public class GameController : Photon.MonoBehaviour
             {
                 Waves++;
                 yield return new WaitForSeconds(waveWait);
-                if(photonView.isMine)
+                if (photonView.isMine)
                     curBoss = PhotonNetwork.Instantiate("fighter03", spawnPositionBoss.transform.position, Quaternion.Euler(Vector3.zero), 0);
             }
             yield return new WaitForSeconds(waveWait);

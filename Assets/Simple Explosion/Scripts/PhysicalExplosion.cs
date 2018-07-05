@@ -20,7 +20,7 @@ public class PhysicalExplosion : MonoBehaviour
             }
 			
         }
-        Destroy(gameObject,0.2f);// destroy explosion
+        Destroy(gameObject);// destroy explosion
     }
     void OnDrawGizmos()
     {

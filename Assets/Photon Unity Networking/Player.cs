@@ -73,7 +73,8 @@ public class Player : Photon.MonoBehaviour {
 				PhotonNetwork.Instantiate ("ammo", new Vector3 (shotSpawn.transform.position.x, 36, shotSpawn.transform.position.z), Quaternion.Euler (0, 0, 0),0);
 			}
 		} else {
-			if (isSinch) {
+			if (isSinch)
+            {
 
                 if (Vector3.Distance(oldPos, newPos) > 50f)
                 {
