@@ -11,18 +11,28 @@ public class Player : Photon.MonoBehaviour {
     public GameObject shotSpawn;
     public GameObject ammo;
     public float fireRate;
-	Vector3 oldPos=Vector3.zero;
-	Vector3 newPos=Vector3.zero;
 	float offsetTime=0;
 	bool isSinch=false;
     //public GameObject TouchPad;
     private float nextFire;
+
     private Vector3 pos;
     private Quaternion rot;
-	//CharacterController controller;
+
+    private Vector3 oldPos;
+    private Vector3 newPos;
+
+    private Quaternion oldRot;
+    private Quaternion newRot;
+
+    //CharacterController controller;
     private void Start()
     {
-		//controller = GetComponent<CharacterController> ();
+        //controller = GetComponent<CharacterController> ();
+        oldPos = Vector3.zero;
+        newPos = Vector3.zero;
+        oldRot = Quaternion.Euler(Vector3.zero);
+        newRot = Quaternion.Euler(Vector3.zero);
         rb = GetComponent<Rigidbody>();
     }
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
@@ -33,6 +43,8 @@ public class Player : Photon.MonoBehaviour {
 		if(stream.isReading){
 			oldPos = transform.position;
 			newPos = pos;
+            oldRot = transform.rotation;
+            newRot = rot;
 			offsetTime = 0;
 			isSinch = true;
 			//transform.position=pos;
@@ -61,12 +73,18 @@ public class Player : Photon.MonoBehaviour {
 			}
 		} else {
 			if (isSinch) {
-				if (Vector3.Distance (oldPos, newPos) > 3f)
-					transform.position = oldPos = newPos;
-				else {
-					offsetTime += Time.deltaTime * 9f;
-					transform.position = Vector3.Lerp (oldPos, newPos, offsetTime);
-				}
+
+                if (Vector3.Distance(oldPos, newPos) > 50f)
+                {
+                    transform.position = oldPos = newPos;
+                    transform.rotation = oldRot = newRot;
+                }
+                else
+                {
+                    offsetTime += Time.deltaTime * 9f;
+                    transform.position = Vector3.Lerp(oldPos, newPos, offsetTime);
+                    transform.rotation = Quaternion.Lerp(oldRot, newRot, offsetTime);
+                }
 			}
 
 		}

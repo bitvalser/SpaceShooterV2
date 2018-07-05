@@ -227,7 +227,7 @@ MonoBehaviour:
   spawnPositionBoss: {fileID: 247104018}
   Boss: {fileID: 1603496378948266, guid: b99cd9d37415f8b4fbbe24d403647635, type: 2}
   waveWait: 3
-  startWait: 5
+  startWait: 50
   countAst: 10
   spawnWait: 0.5
 --- !u!4 &172866723
