@@ -19,13 +19,20 @@ public class GameController : MonoBehaviour
     private int Waves;
     private int score;
     private GameObject curBoss;
+    private int players;
 
     void Start()
     {
         Waves = 0;
         score = 0;
         curBoss = null;
+        players = 1;
         StartCoroutine (SpawnWaves());
+    }
+
+    public void addPlayer()
+    {
+        players++;
     }
 
     public void addScore(int s)
@@ -35,7 +42,7 @@ public class GameController : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 100, 40), "Wave " + Waves.ToString() +"\nScore " + score.ToString());
+        GUI.Box(new Rect(10, 10, 100, 50), "Wave " + Waves.ToString() +"\nScore " + score.ToString() + "\nPlayers " + players.ToString());
     }
 
     IEnumerator SpawnWaves()
@@ -43,7 +50,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(startWait);
         while (true)
         {
-            if (curBoss == null)
+            if ((curBoss == null) && (players > 1))
             {
                 Waves++;
                 for (int i = 0; i < countAst; i++)

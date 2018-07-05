@@ -12,9 +12,8 @@ public class ConnectContoroll : Photon.MonoBehaviour {
 		PhotonNetwork.JoinOrCreateRoom ("VA", new RoomOptions (), TypedLobby.Default);
 	}
 	void OnJoinedRoom(){
-		Vector3 spawn=new Vector3(0,20,-686);
-
-		PhotonNetwork.Instantiate("fighter01",spawn,Quaternion.Euler(0,180,0),0);
-        Application.LoadLevel("SampleScene");
+        GameObject.FindWithTag("GameController").GetComponent<GameController>().addPlayer();
+        Vector3 spawn=new Vector3(0,20,-686);
+        PhotonNetwork.Instantiate("fighter01",spawn,Quaternion.Euler(0,180,0),0);
     }
 }
