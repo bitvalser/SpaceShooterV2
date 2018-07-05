@@ -8,9 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Copy.unity
     guid: e3d997f0246265b46a0d62aeba233f18
-  - enabled: 1
-    path: Assets/Scenes/PVPARENA.unity
-    guid: 8e196ef2068e259448790a14da568187
+  m_configObjects: {}
