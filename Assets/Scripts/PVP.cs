@@ -12,6 +12,6 @@ public class PVP : MonoBehaviour
     void TaskOnClickPVP()
     {
         Debug.Log("res");
-        Application.LoadLevel("PVP");
+        Application.LoadLevel("pvp");
     }
 }
