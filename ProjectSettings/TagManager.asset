@@ -11,6 +11,7 @@ TagManager:
   - Control
   - FireEnemy
   - Background
+  - Nick
   layers:
   - Default
   - TransparentFX

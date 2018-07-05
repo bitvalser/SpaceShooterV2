@@ -19,13 +19,20 @@ public class GameController : Photon.MonoBehaviour
     private int Waves;
     private int score;
     private GameObject curBoss;
+    private int players;
 
     void Start()
     {
         Waves = 0;
         score = 0;
+        players = 0;
         curBoss = null;
         StartCoroutine (SpawnWaves());
+    }
+
+    public void setPlayers(int P)
+    {
+        players = P;
     }
 
     public void addScore(int s)
@@ -36,13 +43,18 @@ public class GameController : Photon.MonoBehaviour
     private void OnGUI()
     {
         GUI.Box(new Rect(10, 10, 100, 40), "Wave " + Waves.ToString() +"\nScore " + score.ToString());
+        if(players < 2 && photonView.isMine)
+        {
+            GUI.Box(new Rect(10, 60, 100, 25), "Waiting players");
+        }
     }
 
     IEnumerator SpawnWaves()
     {
-        yield return new WaitForSeconds(startWait);
+        while(players < 2) yield return new WaitForSeconds(startWait);
+
         while (true)
-        {
+        { 
             if (curBoss == null)
             {
                 Waves++;
@@ -70,7 +82,7 @@ public class GameController : Photon.MonoBehaviour
                     yield return new WaitForSeconds(spawnWait);
                 }
             }
-            if(Waves == 2)
+            if(Waves == 10)
             {
                 Waves++;
                 yield return new WaitForSeconds(waveWait);

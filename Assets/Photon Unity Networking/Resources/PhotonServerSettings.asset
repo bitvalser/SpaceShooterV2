@@ -39,4 +39,6 @@ MonoBehaviour:
   - StartGame
   - SpawnEnemy
   - SpawnEnemyShip
+  - setPlayers
+  - PlayerConnect
   DisableAutoOpenWizard: 1

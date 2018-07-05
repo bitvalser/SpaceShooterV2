@@ -11,6 +11,6 @@ public class Restart : MonoBehaviour {
     void TaskOnClick()
     {
         Debug.Log("res");
-        Application.LoadLevel("Copy");
+        Application.LoadLevel("PVE");
     }
 }

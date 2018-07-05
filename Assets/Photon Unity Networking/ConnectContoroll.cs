@@ -19,5 +19,8 @@ public class ConnectContoroll : Photon.MonoBehaviour {
 	void OnJoinedRoom(){
         Vector3 spawn=new Vector3(0,20,-686);
         PhotonNetwork.Instantiate("fighter01",spawn,Quaternion.Euler(0,180,0),0);
+        
     }
+
+    
 }

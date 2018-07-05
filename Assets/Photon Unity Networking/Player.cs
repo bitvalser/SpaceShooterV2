@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Player : Photon.MonoBehaviour {
@@ -10,12 +11,12 @@ public class Player : Photon.MonoBehaviour {
     public float tilty;
     public GameObject shotSpawn;
     public GameObject ammo;
-    public GameObject Ast;
     public float fireRate;
 	float offsetTime=0;
 	bool isSinch=false;
     //public GameObject TouchPad;
     private float nextFire;
+    public GameObject Nick;
 
     private Vector3 pos;
     private Quaternion rot;
@@ -30,13 +31,26 @@ public class Player : Photon.MonoBehaviour {
     private void Start()
     {
         //controller = GetComponent<CharacterController> ();
+        if (photonView.isMine)
+        {
+            Nick.GetComponent<TextMesh>().text = GameObject.FindWithTag("Nick").GetComponent<TextLine>().getNick();
+            Destroy(GameObject.FindWithTag("Nick"));
+        }
         oldPos = Vector3.zero;
         newPos = Vector3.zero;
         oldRot = Quaternion.Euler(Vector3.zero);
         newRot = Quaternion.Euler(Vector3.zero);
         rb = GetComponent<Rigidbody>();
+        photonView.RPC("PlayerConnect", PhotonTargets.All, PhotonNetwork.countOfPlayers);
     }
-	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+
+    [PunRPC]
+    void PlayerConnect(int P)
+    {
+        GameObject.FindWithTag("GameController").GetComponent<GameController>().setPlayers(P);
+    }
+
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		pos=transform.position;
 		rot= transform.rotation;
 		stream.Serialize(ref pos);
@@ -55,10 +69,11 @@ public class Player : Photon.MonoBehaviour {
     private void Update()
     {
 		Vector3 move = Vector3.zero;
-		if (photonView.isMine) {
+        Nick.transform.eulerAngles = new Vector3(90, 0, 0);
+        if (photonView.isMine) {
 			move = new Vector3 (Input.GetAxis ("Horizontal") * speed * 1000 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * speed * 1000 * Time.deltaTime);
-			rb.rotation = Quaternion.Euler (rb.velocity.z * -tilty, 180, rb.velocity.x * tiltx);
-			if ((transform.position.x < -200)) {
+			rb.rotation = Quaternion.Euler (rb.velocity.z * -tilty, 180, rb.velocity.x * tiltx);            
+            if ((transform.position.x < -200)) {
 				transform.position = new Vector3 (-200, transform.position.y, transform.position.z);
 			}
 			if ((transform.position.x > 200)) {
