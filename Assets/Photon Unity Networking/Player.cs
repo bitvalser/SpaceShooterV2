@@ -70,7 +70,7 @@ public class Player : Photon.MonoBehaviour {
 			rb.velocity = move;
 			if (Time.time > nextFire && Input.GetKey(KeyCode.Space)) {
 				nextFire = Time.time + fireRate;
-				Instantiate (ammo, new Vector3 (shotSpawn.transform.position.x, 36, shotSpawn.transform.position.z), Quaternion.Euler (0, 0, 0));
+				PhotonNetwork.Instantiate ("ammo", new Vector3 (shotSpawn.transform.position.x, 36, shotSpawn.transform.position.z), Quaternion.Euler (0, 0, 0),0);
 			}
 		} else {
 			if (isSinch) {
