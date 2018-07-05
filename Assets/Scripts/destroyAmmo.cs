@@ -6,6 +6,8 @@ public class destroyAmmo : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        Destroy(other.gameObject);
+		if (other.tag != "Boundary" && other.tag != "Player") {
+			Destroy (other.gameObject);
+		}
     }
 }
