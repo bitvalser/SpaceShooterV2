@@ -54,6 +54,10 @@ public class Player : Photon.MonoBehaviour {
     private void Update()
     {
 		Vector3 move = Vector3.zero;
+        if(PhotonNetwork.isMasterClient && Input.GetKeyDown(KeyCode.R))
+        {
+            photonView.RPC("StartGame", PhotonTargets.All);
+        }
 		if (photonView.isMine) {
 			move = new Vector3 (Input.GetAxis ("Horizontal") * speed * 1000 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * speed * 1000 * Time.deltaTime);
 			rb.rotation = Quaternion.Euler (rb.velocity.z * -tilty, 180, rb.velocity.x * tiltx);
@@ -90,6 +94,13 @@ public class Player : Photon.MonoBehaviour {
 		}
 
     }
+
+    [PunRPC]
+    void StartGame()
+    {
+        GameObject.FindWithTag("GameController").GetComponent<GameController>().StartGame();
+    }
+
 //    private void FixedUpdate()
 //    {
 //        Vector3 move = Vector3.zero;

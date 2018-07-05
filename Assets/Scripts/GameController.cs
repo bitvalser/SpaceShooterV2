@@ -26,6 +26,11 @@ public class GameController : MonoBehaviour
         Waves = 0;
         score = 0;
         curBoss = null;
+    }
+
+    public void StartGame()
+    {
+        Debug.Log("Game start");
         StartCoroutine (SpawnWaves());
     }
 
@@ -44,7 +49,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(startWait);
         while (true)
         {
-            if ((curBoss == null) && (players > 1))
+            if (curBoss == null)
             {
                 Waves++;
                 for (int i = 0; i < countAst; i++)
