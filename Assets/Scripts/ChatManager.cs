@@ -31,8 +31,8 @@ public class ChatManager : MonoBehaviour, IChatClientListener {
 	{
 		if (!_connected)
 		{
-			_name = GUI.TextField(new Rect(10, 10, 200, 20), _name);
-			if (GUI.Button(new Rect(10, 35, 80, 20), "Enter"))
+			_name = GUI.TextField(new Rect(10, 100, 200, 20), _name);
+			if (GUI.Button(new Rect(10, 125, 80, 20), "Enter"))
 			{
 				if (!string.IsNullOrEmpty(_name) && _name.Length > 0)
 					Connect();
