@@ -35,8 +35,17 @@ public class Player : Photon.MonoBehaviour {
         //controller = GetComponent<CharacterController> ();
         if (photonView.isMine)
         {
-            Nick.GetComponent<TextMesh>().text = GameObject.FindWithTag("Nick").GetComponent<TextLine>().getNick();
-            Destroy(GameObject.FindWithTag("Nick"));
+            Nick.GetComponent<TextMesh>().text = PhotonNetwork.playerName;
+        }
+        else
+        {
+            for(int i = 0; i < PhotonNetwork.playerList.Length; i++)
+            {
+                if(PhotonNetwork.playerList[i] != PhotonNetwork.player)
+                {
+                    Nick.GetComponent<TextMesh>().text = PhotonNetwork.playerList[i].NickName;
+                }
+            }
         }
         oldPos = Vector3.zero;
         newPos = Vector3.zero;
