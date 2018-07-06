@@ -39,7 +39,12 @@ public class GameController : Photon.MonoBehaviour
     {
         score += s;
     }
-
+	public bool multishot(){
+		if (score > 300)
+			return true;
+		else
+			return false;
+	}
     private void OnGUI()
     {
         GUI.Box(new Rect(10, 10, 100, 40), "Wave " + Waves.ToString() +"\nScore " + score.ToString());
