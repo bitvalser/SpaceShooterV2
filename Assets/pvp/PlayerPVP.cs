@@ -54,17 +54,17 @@ public class PlayerPVP : Photon.MonoBehaviour {
             
 			move = new Vector3 (dir * Input.GetAxis ("Horizontal") * speed * 1000 * Time.deltaTime, 0, dir * Input.GetAxis ("Vertical") * speed * 1000 * Time.deltaTime);
 			rb.rotation = Quaternion.Euler (rb.velocity.z * -tilty, 180 - mode * 180, rb.velocity.x * tiltx);
-			if ((transform.position.x < -1481)) {
-				transform.position = new Vector3 (-1481, transform.position.y, transform.position.z);
+			if ((transform.position.x < -528)) {
+				transform.position = new Vector3 (-528, transform.position.y, transform.position.z);
 			}
-			if ((transform.position.x > 1718)) {
-				transform.position = new Vector3 (1718, transform.position.y, transform.position.z);
+			if ((transform.position.x > 524)) {
+				transform.position = new Vector3 (524, transform.position.y, transform.position.z);
 			}
-			if ((transform.position.z > 2250)) {
-				transform.position = new Vector3 (transform.position.x, transform.position.y, 2250);
+			if ((transform.position.z > 1204)) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y, 1204);
 			}
-			if ((transform.position.z < -3031)) {
-				transform.position = new Vector3 (transform.position.x, transform.position.y, -3031);
+			if ((transform.position.z < -419)) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y, -419);
 			}
 			rb.velocity = move;
 			if (Time.time > nextFire && Input.GetKey(KeyCode.Space)) {
