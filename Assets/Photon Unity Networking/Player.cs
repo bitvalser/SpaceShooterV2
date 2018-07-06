@@ -61,22 +61,6 @@ public class Player : Photon.MonoBehaviour {
         GameObject.FindWithTag("GameController").GetComponent<GameController>().setPlayers(P);
     }
 
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-		pos=transform.position;
-		rot= transform.rotation;
-		stream.Serialize(ref pos);
-		stream.Serialize(ref rot);
-		if(stream.isReading){
-			oldPos = transform.position;
-			newPos = pos;
-            oldRot = transform.rotation;
-            newRot = rot;
-			offsetTime = 0;
-			isSinch = true;
-			//transform.position=pos;
-			//transform.rotation=rot;
-		}
-	}
     private void Update()
     {
 		Vector3 move = Vector3.zero;
@@ -104,21 +88,6 @@ public class Player : Photon.MonoBehaviour {
 				}
 			}
 		} else {
-			if (isSinch)
-            {
-
-                if (Vector3.Distance(oldPos, newPos) > 50f)
-                {
-                    transform.position = oldPos = newPos;
-                    transform.rotation = oldRot = newRot;
-                }
-                else
-                {
-                    offsetTime += Time.deltaTime * 9f;
-                    transform.position = Vector3.Lerp(oldPos, newPos, offsetTime);
-                    transform.rotation = Quaternion.Lerp(oldRot, newRot, offsetTime);
-                }
-			}
 
 		}
 

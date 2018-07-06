@@ -58,13 +58,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 494976}
-  - component: {fileID: 5444550}
   - component: {fileID: 11425652}
   - component: {fileID: 136879121251696478}
   - component: {fileID: 114392513725128926}
   - component: {fileID: 114126262187472454}
   - component: {fileID: 114348760319142560}
   - component: {fileID: 114144657419384026}
+  - component: {fileID: 5444550}
   m_Layer: 0
   m_Name: Asteroid1
   m_TagString: Enemy
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a718c138b20419b499c3d92b17e6ff7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tumble: 1
+  tumble: 5
 --- !u!205 &20596230
 LODGroup:
   m_ObjectHideFlags: 1
@@ -415,12 +415,14 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 114126262187472454}
+  - {fileID: 114144657419384026}
+  - {fileID: 11425652}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

@@ -15,7 +15,9 @@ public class ConnectControllPVP : Photon.MonoBehaviour {
 
 	}
 	void OnJoinedRoom(){
-		if (PhotonNetwork.countOfPlayersInRooms< 1) {
+        PhotonNetwork.playerName = GameObject.FindWithTag("Nick").GetComponent<TextLine>().getNick();
+        Destroy(GameObject.FindWithTag("Nick"));
+        if (PhotonNetwork.countOfPlayersInRooms< 1) {
 			Vector3 spawn = new Vector3 (0, 100, -20);
 			PhotonNetwork.Instantiate ("fighterPVP1", spawn, Quaternion.Euler (0, 180, 0), 0);
             Debug.Log("fighterPVP1");
@@ -25,6 +27,7 @@ public class ConnectControllPVP : Photon.MonoBehaviour {
 			Vector3 spawn = new Vector3 (0, 100, 870);
 			PhotonNetwork.Instantiate ("fighterPVP2", spawn, Quaternion.Euler (0, 0, 0), 0);
             Debug.Log("fighterPVP2");
+            GameObject.FindWithTag("MainCamera").transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
         }
 	}
 }

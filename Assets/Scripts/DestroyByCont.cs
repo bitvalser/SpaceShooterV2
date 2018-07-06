@@ -13,7 +13,7 @@ public class DestroyByCont : MonoBehaviour {
             return;
         }
         Instantiate(explosion, transform.position, transform.rotation);
-        Destroy(other.gameObject);
+        PhotonNetwork.Destroy(other.gameObject);
         if(other.tag == "Fire")
         {
             GameObject.FindWithTag("GameController").GetComponent<GameController>().addScore(10);
@@ -22,6 +22,6 @@ public class DestroyByCont : MonoBehaviour {
         {
             Instantiate(explosion, other.transform.position, other.transform.rotation);
         }
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

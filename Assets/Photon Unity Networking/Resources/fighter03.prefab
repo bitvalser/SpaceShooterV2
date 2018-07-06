@@ -81,10 +81,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4308136173220278}
-  - component: {fileID: 54011202391143594}
   - component: {fileID: 64678998327752894}
   - component: {fileID: 114599584555204418}
   - component: {fileID: 114852740243072784}
+  - component: {fileID: 114619385256765820}
+  - component: {fileID: 54011202391143594}
   m_Layer: 0
   m_Name: fighter03
   m_TagString: Enemy
@@ -285,6 +286,19 @@ MonoBehaviour:
   tilt: 0.1
   health: 100
   moveFowardSpeed: -1
+--- !u!114 &114619385256765820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1603496378948266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
 --- !u!114 &114852740243072784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,12 +314,13 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 114599584555204418}
+  - {fileID: 114619385256765820}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

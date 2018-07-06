@@ -12,64 +12,67 @@ public class PlayerPVP : Photon.MonoBehaviour {
 	public float tilty;
 	public GameObject shotSpawn;
 	public GameObject ammo;
+
 	//public GameObject Ast;
 	public float fireRate;
 //	float offsetTime=0;
 //	bool isSinch=false;
 //	//public GameObject TouchPad;
     private float nextFire;
-//
-//	private Vector3 pos;
-//	private Quaternion rot;
-//
-//	private Vector3 oldPos;
-//	private Vector3 newPos;
-//
-//	private Quaternion oldRot;
-//	private Quaternion newRot;
-	//PhotonView m_PhotonView;
-	//CharacterController controller;
-	private void Start()
+    private int dir;
+
+    public GameObject Nick;
+
+    //	private Vector3 pos;
+    //	private Quaternion rot;
+    //
+    //	private Vector3 oldPos;
+    //	private Vector3 newPos;
+    //
+    //	private Quaternion oldRot;
+    //	private Quaternion newRot;
+    //PhotonView m_PhotonView;
+    //CharacterController controller;
+    private void Start()
 	{
-		//controller = GetComponent<CharacterController> ();
-//		oldPos = Vector3.zero;
-//		newPos = Vector3.zero;
-//		oldRot = Quaternion.Euler(Vector3.zero);
-//		newRot = Quaternion.Euler(Vector3.zero);
-		//m_Animator = GetComponent<Animator>();
-		rb = GetComponent<Rigidbody>();
+
+        if (photonView.isMine)
+        {
+            Nick.GetComponent<TextMesh>().text = PhotonNetwork.playerName;
+        }
+        else
+        {
+            for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
+            {
+                if (PhotonNetwork.playerList[i] != PhotonNetwork.player)
+                {
+                    Nick.GetComponent<TextMesh>().text = PhotonNetwork.playerList[i].NickName;
+                }
+            }
+        }
+
+        //controller = GetComponent<CharacterController> ();
+        //		oldPos = Vector3.zero;
+        //		newPos = Vector3.zero;
+        //		oldRot = Quaternion.Euler(Vector3.zero);
+        //		newRot = Quaternion.Euler(Vector3.zero);
+        //m_Animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        dir = 1 - 2 * mode;
 		//m_PhotonView = GetComponent<PhotonView>();
 	}
-	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-//		pos=transform.position;
-//		rot= transform.rotation;
-//		stream.Serialize(ref pos);
-//		stream.Serialize(ref rot);
-		if (stream.isReading) {
-			stream.SendNext (transform.position);
-			stream.SendNext (transform.rotation);
-//			oldPos = transform.position;
-//			newPos = pos;
-//			oldRot = transform.rotation;
-//			newRot = rot;
-//			offsetTime = 0;
-//			isSinch = true;
-			//transform.position=pos;
-			//transform.rotation=rot;
-		} 
-		else {
-			transform.position=(Vector3)stream.ReceiveNext();
-			transform.rotation=(Quaternion)stream.ReceiveNext();
-		}
-	}
+
 
 
 
 	private void Update()
 	{
 		Vector3 move = Vector3.zero;
-		if (photonView.isMine) {
-			move = new Vector3 (Input.GetAxis ("Horizontal") * speed * 1000 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * speed * 1000 * Time.deltaTime);
+        if (mode == 0) Nick.transform.eulerAngles = new Vector3(90, 0, 0);
+        else Nick.transform.eulerAngles = new Vector3(90, 180, 0);
+        if (photonView.isMine) {
+            
+			move = new Vector3 (dir * Input.GetAxis ("Horizontal") * speed * 1000 * Time.deltaTime, 0, dir * Input.GetAxis ("Vertical") * speed * 1000 * Time.deltaTime);
 			rb.rotation = Quaternion.Euler (rb.velocity.z * -tilty, 180 - mode * 180, rb.velocity.x * tiltx);
 			if ((transform.position.x < -1481)) {
 				transform.position = new Vector3 (-1481, transform.position.y, transform.position.z);

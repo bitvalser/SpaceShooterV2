@@ -18,7 +18,7 @@ public class Enemy : Photon.MonoBehaviour {
 
     float offsetTime = 0;
     bool isSinch = false;
-
+    /*
     private Vector3 pos;
     private Quaternion rot;
 
@@ -27,7 +27,7 @@ public class Enemy : Photon.MonoBehaviour {
 
     private Quaternion oldRot;
     private Quaternion newRot;
-
+    */
     // Use this for initialization
     void Start () {
         dir = 0;
@@ -36,6 +36,7 @@ public class Enemy : Photon.MonoBehaviour {
         //rb.velocity = transform.forward * speed * 1000 * Time.deltaTime;      
     }
 
+    /*
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         pos = transform.position;
@@ -51,7 +52,7 @@ public class Enemy : Photon.MonoBehaviour {
             offsetTime = 0;
             isSinch = true;
         }
-    }
+    }*/
 
         // Update is called once per frame
         void Update () {
@@ -75,7 +76,7 @@ public class Enemy : Photon.MonoBehaviour {
             rb.rotation = Quaternion.Euler(0.0f, 180, rb.velocity.x * -tilt);
         }
         else
-        {
+        {/*
             if (isSinch)
             {
 
@@ -90,7 +91,7 @@ public class Enemy : Photon.MonoBehaviour {
                     transform.position = Vector3.Lerp(oldPos, newPos, offsetTime);
                     transform.rotation = Quaternion.Lerp(oldRot, newRot, offsetTime);
                 }
-            }
+            }*/
         }
     }
 
