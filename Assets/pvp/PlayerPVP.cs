@@ -4,54 +4,67 @@ using UnityEngine;
 
 public class PlayerPVP : Photon.MonoBehaviour {
 	public int mode;
+	//bool isFiring;
 	private Rigidbody rb;
 	public float speed;
+	//Animator m_Animator;
 	public float tiltx;
 	public float tilty;
 	public GameObject shotSpawn;
 	public GameObject ammo;
 	//public GameObject Ast;
 	public float fireRate;
-	float offsetTime=0;
-	bool isSinch=false;
-	//public GameObject TouchPad;
-	private float nextFire;
-
-	private Vector3 pos;
-	private Quaternion rot;
-
-	private Vector3 oldPos;
-	private Vector3 newPos;
-
-	private Quaternion oldRot;
-	private Quaternion newRot;
-
+//	float offsetTime=0;
+//	bool isSinch=false;
+//	//public GameObject TouchPad;
+    private float nextFire;
+//
+//	private Vector3 pos;
+//	private Quaternion rot;
+//
+//	private Vector3 oldPos;
+//	private Vector3 newPos;
+//
+//	private Quaternion oldRot;
+//	private Quaternion newRot;
+	//PhotonView m_PhotonView;
 	//CharacterController controller;
 	private void Start()
 	{
 		//controller = GetComponent<CharacterController> ();
-		oldPos = Vector3.zero;
-		newPos = Vector3.zero;
-		oldRot = Quaternion.Euler(Vector3.zero);
-		newRot = Quaternion.Euler(Vector3.zero);
+//		oldPos = Vector3.zero;
+//		newPos = Vector3.zero;
+//		oldRot = Quaternion.Euler(Vector3.zero);
+//		newRot = Quaternion.Euler(Vector3.zero);
+		//m_Animator = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody>();
+		//m_PhotonView = GetComponent<PhotonView>();
 	}
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-		pos=transform.position;
-		rot= transform.rotation;
-		stream.Serialize(ref pos);
-		stream.Serialize(ref rot);
-		if(stream.isReading){
-			oldPos = transform.position;
-			newPos = pos;
-			oldRot = transform.rotation;
-			newRot = rot;
-			offsetTime = 0;
-			isSinch = true;
+//		pos=transform.position;
+//		rot= transform.rotation;
+//		stream.Serialize(ref pos);
+//		stream.Serialize(ref rot);
+		if (stream.isReading) {
+			stream.SendNext (transform.position);
+			stream.SendNext (transform.rotation);
+//			oldPos = transform.position;
+//			newPos = pos;
+//			oldRot = transform.rotation;
+//			newRot = rot;
+//			offsetTime = 0;
+//			isSinch = true;
 			//transform.position=pos;
 			//transform.rotation=rot;
+		} 
+		else {
+			transform.position=(Vector3)stream.ReceiveNext();
+			transform.rotation=(Quaternion)stream.ReceiveNext();
 		}
 	}
+
+
+
 	private void Update()
 	{
 		Vector3 move = Vector3.zero;
@@ -80,24 +93,24 @@ public class PlayerPVP : Photon.MonoBehaviour {
 					PhotonNetwork.Instantiate ("ammoPVP2", new Vector3 (shotSpawn.transform.position.x, shotSpawn.transform.position.y, shotSpawn.transform.position.z), Quaternion.Euler (0, 0, 0), 0);
 				}
 			}
-		} else {
-			if (isSinch)
-			{
-
-				if (Vector3.Distance(oldPos, newPos) > 50f)
-				{
-					transform.position = oldPos = newPos;
-					transform.rotation = oldRot = newRot;
-				}
-				else
-				{
-					offsetTime += Time.deltaTime * 9f;
-					transform.position = Vector3.Lerp(oldPos, newPos, offsetTime);
-					transform.rotation = Quaternion.Lerp(oldRot, newRot, offsetTime);
-				}
-			}
-
-		}
+		} //else {
+//			if (isSinch)
+//			{
+//
+//				if (Vector3.Distance(oldPos, newPos) > 50f)
+//				{
+//					transform.position = oldPos = newPos;
+//					transform.rotation = oldRot = newRot;
+//				}
+//				else
+//				{
+//					offsetTime += Time.deltaTime * 9f;
+//					transform.position = Vector3.Lerp(oldPos, newPos, offsetTime);
+//					transform.rotation = Quaternion.Lerp(oldRot, newRot, offsetTime);
+//				}
+//			}
+//
+//		}
 
 	}
 }
