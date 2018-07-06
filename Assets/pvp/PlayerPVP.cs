@@ -15,24 +15,14 @@ public class PlayerPVP : Photon.MonoBehaviour {
 
 	//public GameObject Ast;
 	public float fireRate;
-//	float offsetTime=0;
-//	bool isSinch=false;
+	float offsetTime=0;
+	bool isSinch=false;
 //	//public GameObject TouchPad;
     private float nextFire;
     private int dir;
 
     public GameObject Nick;
 
-    //	private Vector3 pos;
-    //	private Quaternion rot;
-    //
-    //	private Vector3 oldPos;
-    //	private Vector3 newPos;
-    //
-    //	private Quaternion oldRot;
-    //	private Quaternion newRot;
-    //PhotonView m_PhotonView;
-    //CharacterController controller;
     private void Start()
 	{
 
@@ -50,20 +40,10 @@ public class PlayerPVP : Photon.MonoBehaviour {
                 }
             }
         }
-
-        //controller = GetComponent<CharacterController> ();
-        //		oldPos = Vector3.zero;
-        //		newPos = Vector3.zero;
-        //		oldRot = Quaternion.Euler(Vector3.zero);
-        //		newRot = Quaternion.Euler(Vector3.zero);
-        //m_Animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         dir = 1 - 2 * mode;
-		//m_PhotonView = GetComponent<PhotonView>();
+
 	}
-
-
-
 
 	private void Update()
 	{
@@ -96,24 +76,9 @@ public class PlayerPVP : Photon.MonoBehaviour {
 					PhotonNetwork.Instantiate ("ammoPVP2", new Vector3 (shotSpawn.transform.position.x, shotSpawn.transform.position.y, shotSpawn.transform.position.z), Quaternion.Euler (0, 0, 0), 0);
 				}
 			}
-		} //else {
-//			if (isSinch)
-//			{
-//
-//				if (Vector3.Distance(oldPos, newPos) > 50f)
-//				{
-//					transform.position = oldPos = newPos;
-//					transform.rotation = oldRot = newRot;
-//				}
-//				else
-//				{
-//					offsetTime += Time.deltaTime * 9f;
-//					transform.position = Vector3.Lerp(oldPos, newPos, offsetTime);
-//					transform.rotation = Quaternion.Lerp(oldRot, newRot, offsetTime);
-//				}
-//			}
-//
-//		}
+		} else {
+
+		}
 
 	}
 }
